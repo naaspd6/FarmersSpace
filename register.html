@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style4.css">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
+    <title>Farmers Space</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+              
+
+                    <div class="card-body">
+                        <h4 class="title text-center mt-4">Our team will get back to you soon!</h4>
+                        <form class="form-box px-3" action="">
+                            <div class="form-input">
+                                <div class="msg">Please enter your full name <span>*</span></div>
+                                <input type="text" name="text" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-input">
+                                <div class="msg">Please enter your registered phone number <span>*</span></div>
+                                <input type="tel" name="phone" placeholder="Registered number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required>
+                            </div>
+                            <div class="form-input">
+                                <div class="msg">Please enter your email</div>
+                                <input type="email" name="email" placeholder="Email Id" >
+                            </div>
+                            <div class="form-input">
+                                <div class="msg">Please enter your aadhaar number <span>*</span></div>
+                                <input type="text" id="VerifyAadhar" placeholder="Enter Your Aadhar Card No." name="VerifyAadhar" required>
+                                <button id="message" type="button" class="btn btn-primary" onclick="verify()" style="background-color:#51b149; margin: 0 0 10px 0;">Verify</button>
+                            </div>                          
+                            
+                            <div class="form-input">
+                                <div class="msg">Please enter your full address <span>*</span></div>
+                                <input type="text" name="text" placeholder="Full Address" required>
+                            </div>
+                            <div class="form-input">
+                                <div class="msg">Please enter your city<span>*</span></div>
+                                <input type="text" name="text" placeholder="City" required>
+                            </div>
+                            <div class="form-input">
+                                <div class="msg">Please enter your pincode<span>*</span></div>
+                                <input name="pincode" type="text" class="pincode" inputmode="numeric" placeholder="Pincode" maxlength="4" required>
+                            </div>  
+                            <div class="form-input">
+                                <div class="msg">Select the item <span>*</span></div>
+                                <select name="options" id="options" class="form-control">
+                                    <option value="Select">--Select--</option>
+                                    <option value="Tractors">Tractors</option>
+                                    <option value="Sprayers">Sprayers</option>
+                                    <option value="Harvestors or Combine">Harvestors or Combine</option>
+                                    <option value="Manure Spreader">Manure Spreader</option>
+                                    <option value="Cultivator">Cultivator</option>
+                                    <option value="Plough">Plough</option>
+                                    <option value="Transplanter">Transplanter</option>
+                                    <option value="Wheelbarrows">Wheelbarrows</option>
+                                    <option value="Watering Can">Watering Can</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>  
+
+                              
+                            
+                            <div class="col-12 text-center">
+                               <button type="submit" class="btn btn-primary text-uppercase">Submit Form</button>
+                            </div>                         
+                        </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // multiplication table
+        const d = [
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+            [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+            [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+            [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+            [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+            [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+            [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+            [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+            [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+        ]
+    
+        // permutation table
+        const p = [
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+            [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+            [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+            [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+            [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+            [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+            [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+        ]
+    
+        // validates Aadhar number received as string
+        function validate(aadharNumber) {
+            let c = 0
+            let invertedArray = aadharNumber.split('').map(Number).reverse()
+    
+            invertedArray.forEach((val, i) => {
+                c = d[c][p[(i % 8)][val]]
+            })
+    
+            return (c === 0)
+        }
+    
+        function verify() {
+            var message = document.getElementById("message");
+            var aadharNo = document.getElementById("VerifyAadhar").value;
+            if(validate(aadharNo)) {
+                message.innerHTML = 'Your aadhar card no. valid';
+            } else {
+                message.innerHTML = 'Wrong aadhar no';
+            }
+        }
+        </script>
+</body>
+</html>  
+                            
+                  
